@@ -11,7 +11,13 @@ export const mockArtists: Artist[] = [
     priceFrom: 5000,
     specialties: ['Персонажи', 'Фан-арт', 'Концепт-арт'],
     portfolio: ['https://cdn.poehali.dev/projects/0463d3eb-f825-4919-b241-1eea54cd5437/files/56737f61-f410-45c4-9039-758fdd0735a3.jpg'],
-    description: 'Профессиональный художник с 10+ летним опытом. Специализируюсь на создании персонажей для игр и анимации.'
+    description: 'Профессиональный художник с 10+ летним опытом. Специализируюсь на создании персонажей для игр и анимации.',
+    isPremium: true,
+    customTheme: {
+      primaryColor: '#9333ea',
+      accentColor: '#f59e0b',
+      backgroundPattern: 'dots'
+    }
   },
   {
     id: 2,
@@ -35,7 +41,13 @@ export const mockArtists: Artist[] = [
     priceFrom: 7000,
     specialties: ['Аниме', 'Манга', 'Фан-арт'],
     portfolio: ['https://cdn.poehali.dev/projects/0463d3eb-f825-4919-b241-1eea54cd5437/files/56737f61-f410-45c4-9039-758fdd0735a3.jpg'],
-    description: 'Создаю яркий аниме-арт с живыми эмоциями. Быстрые сроки, качественная работа.'
+    description: 'Создаю яркий аниме-арт с живыми эмоциями. Быстрые сроки, качественная работа.',
+    isPremium: true,
+    customTheme: {
+      primaryColor: '#ec4899',
+      accentColor: '#8b5cf6',
+      backgroundPattern: 'waves'
+    }
   },
   {
     id: 4,

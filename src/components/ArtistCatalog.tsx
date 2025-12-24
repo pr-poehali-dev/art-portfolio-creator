@@ -64,10 +64,14 @@ const ArtistCatalog = ({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredArtists.map((artist, idx) => (
+          {filteredArtists.sort((a, b) => (b.isPremium ? 1 : 0) - (a.isPremium ? 1 : 0)).map((artist, idx) => (
             <Card 
               key={artist.id} 
-              className="group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-purple-100 hover:border-purple-300 rounded-2xl overflow-hidden animate-scale-in cursor-pointer"
+              className={`group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 rounded-2xl overflow-hidden animate-scale-in cursor-pointer ${
+                artist.isPremium 
+                  ? 'border-orange-300 hover:border-orange-400 ring-2 ring-orange-200' 
+                  : 'border-purple-100 hover:border-purple-300'
+              }`}
               style={{ animationDelay: `${idx * 0.1}s` }}
               onClick={() => onArtistClick(artist)}
             >
@@ -77,6 +81,14 @@ const ArtistCatalog = ({
                   alt={artist.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
+                {artist.isPremium && (
+                  <div className="absolute top-3 left-3">
+                    <Badge className="bg-gradient-to-r from-orange-500 to-amber-500 text-white border-0">
+                      <Icon name="Crown" size={14} className="mr-1" />
+                      Premium
+                    </Badge>
+                  </div>
+                )}
                 <div className="absolute top-3 right-3">
                   <Badge className={`${skillLevelMap[artist.skillLevel].color} text-white border-0`}>
                     {skillLevelMap[artist.skillLevel].label}
@@ -90,8 +102,13 @@ const ArtistCatalog = ({
                     alt={artist.name}
                     className="w-12 h-12 rounded-full border-2 border-purple-300"
                   />
-                  <div>
-                    <CardTitle className="text-lg">{artist.name}</CardTitle>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <CardTitle className="text-lg">{artist.name}</CardTitle>
+                      {artist.isPremium && (
+                        <Icon name="Crown" size={16} className="text-orange-500" />
+                      )}
+                    </div>
                     <div className="flex items-center gap-1 text-sm text-yellow-500">
                       <Icon name="Star" size={16} className="fill-yellow-500" />
                       <span className="font-semibold">{artist.rating}</span>

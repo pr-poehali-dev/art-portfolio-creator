@@ -21,18 +21,38 @@ const ArtistDialog = ({ artist, reviews, onClose, onCreateOrder }: ArtistDialogP
 
   const artistReviews = reviews.filter(r => r.artistId === artist.id);
 
+  const customStyle = artist.isPremium && artist.customTheme ? {
+    background: `linear-gradient(135deg, ${artist.customTheme.primaryColor}10 0%, ${artist.customTheme.accentColor}10 100%)`
+  } : {};
+
   return (
     <Dialog open={!!artist} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto" style={customStyle}>
         <DialogHeader>
           <div className="flex items-center gap-4 mb-4">
-            <img 
-              src={artist.avatar}
-              alt={artist.name}
-              className="w-20 h-20 rounded-full border-4 border-purple-300"
-            />
+            <div className="relative">
+              <img 
+                src={artist.avatar}
+                alt={artist.name}
+                className={`w-20 h-20 rounded-full border-4 ${
+                  artist.isPremium ? 'border-orange-400' : 'border-purple-300'
+                }`}
+              />
+              {artist.isPremium && (
+                <div className="absolute -top-1 -right-1 w-8 h-8 bg-gradient-to-br from-orange-500 to-amber-500 rounded-full flex items-center justify-center">
+                  <Icon name="Crown" size={16} className="text-white" />
+                </div>
+              )}
+            </div>
             <div>
-              <DialogTitle className="text-3xl">{artist.name}</DialogTitle>
+              <div className="flex items-center gap-2 mb-1">
+                <DialogTitle className="text-3xl">{artist.name}</DialogTitle>
+                {artist.isPremium && (
+                  <Badge className="bg-gradient-to-r from-orange-500 to-amber-500 text-white border-0">
+                    Premium
+                  </Badge>
+                )}
+              </div>
               <div className="flex items-center gap-3 mt-2">
                 <Badge className={`${skillLevelMap[artist.skillLevel].color} text-white`}>
                   {skillLevelMap[artist.skillLevel].label}
@@ -75,6 +95,15 @@ const ArtistDialog = ({ artist, reviews, onClose, onCreateOrder }: ArtistDialogP
           </TabsContent>
 
           <TabsContent value="order" className="space-y-4">
+            {artist.isPremium && (
+              <div className="bg-gradient-to-r from-orange-500 to-amber-500 text-white p-4 rounded-xl mb-4 flex items-center gap-3">
+                <Icon name="Crown" size={24} />
+                <div>
+                  <p className="font-bold">Premium художник</p>
+                  <p className="text-sm opacity-90">Приоритет в рекомендациях, быстрые сроки</p>
+                </div>
+              </div>
+            )}
             <div className="bg-purple-50 p-6 rounded-xl border-2 border-purple-200">
               <p className="text-lg font-semibold mb-2">Стоимость работ:</p>
               <p className="text-3xl font-bold text-purple-600">от {artist.priceFrom.toLocaleString()}₽</p>

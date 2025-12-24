@@ -12,6 +12,12 @@ export interface Artist {
   specialties: string[];
   portfolio: string[];
   description: string;
+  isPremium?: boolean;
+  customTheme?: {
+    primaryColor: string;
+    accentColor: string;
+    backgroundPattern?: string;
+  };
 }
 
 export interface Order {

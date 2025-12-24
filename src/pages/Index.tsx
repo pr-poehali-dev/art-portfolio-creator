@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { toast } from 'sonner';
@@ -10,6 +11,7 @@ import ArtistCatalog from '@/components/ArtistCatalog';
 import ArtistDialog from '@/components/ArtistDialog';
 
 const Index = () => {
+  const navigate = useNavigate();
   const [artists, setArtists] = useState<Artist[]>(mockArtists);
   const [filteredArtists, setFilteredArtists] = useState<Artist[]>(mockArtists);
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
@@ -102,15 +104,25 @@ const Index = () => {
 
       <section className="py-20 bg-gradient-to-br from-purple-600 to-pink-600 text-white">
         <div className="container mx-auto px-4 text-center">
-          <Icon name="Sparkles" size={48} className="mx-auto mb-6" />
-          <h3 className="text-4xl font-black mb-6">Стань частью креативного сообщества!</h3>
+          <Icon name="Crown" size={48} className="mx-auto mb-6" />
+          <h3 className="text-4xl font-black mb-6">Стань Premium художником!</h3>
           <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-            Регистрируйся как художник и получай заказы от клиентов со всего мира
+            Получай в 3.5 раза больше заказов с Premium-подпиской и кастомным оформлением
           </p>
-          <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-100 text-lg px-10 py-6 rounded-2xl">
-            <Icon name="UserPlus" size={20} className="mr-2" />
-            Начать зарабатывать
-          </Button>
+          <div className="flex gap-4 justify-center flex-wrap">
+            <Button 
+              size="lg" 
+              className="bg-white text-purple-600 hover:bg-gray-100 text-lg px-10 py-6 rounded-2xl"
+              onClick={() => navigate('/premium')}
+            >
+              <Icon name="Crown" size={20} className="mr-2" />
+              Узнать о Premium
+            </Button>
+            <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10 text-lg px-10 py-6 rounded-2xl">
+              <Icon name="UserPlus" size={20} className="mr-2" />
+              Начать бесплатно
+            </Button>
+          </div>
         </div>
       </section>
 
